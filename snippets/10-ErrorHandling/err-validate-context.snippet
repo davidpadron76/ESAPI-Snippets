@@ -4,16 +4,24 @@
     <Header>
       <Title>Validate ScriptContext Before Execution</Title>
       <Shortcut>err-validate-context</Shortcut>
-      <Description>Validacion inicial obligatoria de Patient/Course/Plan antes de ejecutar logica del script.</Description>
+      <Description>Validacion inicial de Patient/StructureSet/Course/Plan antes de ejecutar logica del script (elimina los bloques que no apliquen).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Code Language="CSharp"><![CDATA[if (context.Patient == null)
+      <Code Language="CSharp"><![CDATA[// Borra los bloques que tu script no necesite: exigir Course y PlanSetup en un
+// script que solo lee estructuras lo hace fallar sin motivo.
+if (context.Patient == null)
 {
     MessageBox.Show("No hay paciente cargado en el contexto.");
+    return;
+}
+
+if (context.StructureSet == null)
+{
+    MessageBox.Show("No hay un StructureSet activo en el contexto.");
     return;
 }
 

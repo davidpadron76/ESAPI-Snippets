@@ -4,7 +4,7 @@
     <Header>
       <Title>Get Plan Target Volume</Title>
       <Shortcut>plan-target-volume</Shortcut>
-      <Description>Obtiene la estructura de volumen blanco (TargetVolumeID) configurada en el plan.</Description>
+      <Description>Resuelve la estructura de volumen blanco del plan a partir de TargetVolumeID (que es un string, no una Structure).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -23,11 +23,21 @@
           <Default>plan</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[Structure $targetVar$ = $planVar$.TargetVolumeID;
+      <Code Language="CSharp"><![CDATA[// OJO: PlanSetup.TargetVolumeID es un string (el Id), no una Structure.
+// Hay que resolverlo contra el StructureSet del plan.
+if (string.IsNullOrEmpty($planVar$.TargetVolumeID))
+{
+    MessageBox.Show("El plan no tiene un volumen blanco (Target Volume) asignado.");
+    return;
+}
+
+Structure $targetVar$ = $planVar$.StructureSet.Structures
+    .FirstOrDefault(s => s.Id.Equals($planVar$.TargetVolumeID, StringComparison.OrdinalIgnoreCase));
 
 if ($targetVar$ == null)
 {
-    MessageBox.Show("El plan no tiene un volumen blanco (Target Volume) asignado.");
+    MessageBox.Show(string.Format(
+        "El Target Volume '{0}' del plan no existe en el StructureSet.", $planVar$.TargetVolumeID));
     return;
 }
 $end$

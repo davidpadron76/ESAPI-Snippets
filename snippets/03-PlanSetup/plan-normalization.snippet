@@ -28,7 +28,9 @@
           <Default>100.0</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[double $currentNorm$ = $planVar$.PlanNormalizationValue ?? 100.0;
+      <Code Language="CSharp"><![CDATA[// PlanNormalizationValue es double (no nullable): no aplica el operador ??.
+// Valor en %, donde 100.0 = sin renormalizar.
+double $currentNorm$ = $planVar$.PlanNormalizationValue;
 
 // Para modificar (requiere plan sin aprobar y BeginModifications activo):
 // $planVar$.PlanNormalizationValue = $newNormValue$;

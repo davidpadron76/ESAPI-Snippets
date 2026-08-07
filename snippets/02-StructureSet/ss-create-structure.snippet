@@ -28,7 +28,15 @@
           <Default>Ring_1cm</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[Structure $newStructVar$ = context.StructureSet.AddStructure("$dicomType$", "$structureId$");
+      <Code Language="CSharp"><![CDATA[// AddStructure lanza excepcion si el Id ya existe, excede 16 caracteres o el
+// StructureSet no admite ese DicomType. CanAddStructure lo verifica antes.
+if (!context.StructureSet.CanAddStructure("$dicomType$", "$structureId$"))
+{
+    MessageBox.Show("No se puede crear la estructura '$structureId$' (Id duplicado, invalido o tipo no admitido).");
+    return;
+}
+
+Structure $newStructVar$ = context.StructureSet.AddStructure("$dicomType$", "$structureId$");
 $end$
 ]]></Code>
     </Snippet>

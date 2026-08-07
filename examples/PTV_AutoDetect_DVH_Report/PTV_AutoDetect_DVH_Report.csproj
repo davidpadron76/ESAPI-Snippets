@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Proyecto de referencia para el script de ejemplo (binary plugin de Eclipse).
+
+    Ajusta VarianApiDir a la ruta de tu instalacion antes de compilar, o pasala
+    en linea de comandos:
+
+        msbuild /p:VarianApiDir="C:\Program Files (x86)\Varian\RTM\16.1\esapi\API\"
+
+    ESAPI solo funciona en Windows, sobre .NET Framework y en x64: este archivo
+    no compila en el CI de este repositorio, es una plantilla para tu maquina.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>VMS.TPS</RootNamespace>
+    <AssemblyName>PTV_AutoDetect_DVH_Report</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(VarianApiDir)' == ''">
+    <VarianApiDir>C:\Program Files (x86)\Varian\RTM\16.1\esapi\API\</VarianApiDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="VMS.TPS.Common.Model.API">
+      <HintPath>$(VarianApiDir)VMS.TPS.Common.Model.API.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VMS.TPS.Common.Model.Types">
+      <HintPath>$(VarianApiDir)VMS.TPS.Common.Model.Types.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

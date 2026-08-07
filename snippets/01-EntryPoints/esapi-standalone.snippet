@@ -26,6 +26,10 @@
       <Code Language="CSharp"><![CDATA[using System;
 using VMS.TPS.Common.Model.API;
 
+// Obligatorio en Eclipse v16+ para ejecutables que modifiquen datos.
+// Debe ir fuera de cualquier namespace.
+[assembly: ESAPIScript(IsWriteable = true)]
+
 namespace $namespace$
 {
     class Program

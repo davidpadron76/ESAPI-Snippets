@@ -53,11 +53,24 @@ namespace VMS.TPS
                     return;
                 }
 
+                if (context.StructureSet == null)
+                {
+                    MessageBox.Show("No hay un StructureSet activo en el contexto.");
+                    return;
+                }
+
                 PlanSetup plan = context.PlanSetup;
+
+                // GetDoseAtVolume lanza excepcion si el plan no tiene dosis calculada.
+                if (plan.Dose == null)
+                {
+                    MessageBox.Show("El plan no tiene dosis calculada; no se puede generar el reporte.");
+                    return;
+                }
 
                 // --- Deteccion dinamica de PTVs (snippet: ss-ptv-autodetect) ---
                 List<Structure> detectedPtvs = context.StructureSet.Structures
-                    .Where(s => s.DicomType == "PTV" && !s.IsEmpty)
+                    .Where(s => s.DicomType.Equals("PTV", StringComparison.OrdinalIgnoreCase) && !s.IsEmpty)
                     .OrderByDescending(s => ExtractDoseLevelFromName(s.Id))
                     .ToList();
 
@@ -68,6 +81,9 @@ namespace VMS.TPS
                 }
 
                 // --- Calculo de metricas DVH por PTV (snippet: dose-get-d-at-volume) ---
+                // La unidad absoluta la define la configuracion de Eclipse (Gy o cGy),
+                // asi que se lee del plan en vez de asumirla en los encabezados.
+                string doseUnit = plan.TotalDose.UnitAsString;
                 var rows = new List<IEnumerable<string>>();
 
                 foreach (Structure ptv in detectedPtvs)
@@ -95,7 +111,13 @@ namespace VMS.TPS
                 string outputPath = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop), fileName);
 
-                var headers = new[] { "PTV_Id", "Volume_cm3", "D95_Gy", "D2_Gy" };
+                var headers = new[]
+                {
+                    "PTV_Id",
+                    "Volume_cm3",
+                    "D95_" + doseUnit,
+                    "D2_" + doseUnit,
+                };
                 ExportToCsv(outputPath, headers, rows);
 
                 MessageBox.Show(string.Format(
@@ -115,31 +137,76 @@ namespace VMS.TPS
 
         /// <summary>
         /// Extrae el nivel de dosis numerico embebido en el nombre de la estructura.
-        /// Soporta formatos como "PTV_70", "PTV70Gy", "PTV_59.4".
+        /// Soporta formatos como "PTV_70", "PTV70Gy", "PTV_59.4", "PTV_7000".
         /// </summary>
-        private double ExtractDoseLevelFromName(string structureId)
+        /// <remarks>
+        /// Toma el mayor numero presente en el Id, no el primero: en un Id como
+        /// "PTV_2_70Gy" el primer numero es el indice del nivel, no la dosis.
+        /// Los valores que parecen cGy se normalizan a Gy para poder compararlos.
+        /// </remarks>
+        private static double ExtractDoseLevelFromName(string structureId)
         {
-            Match match = Regex.Match(structureId, @"(\d+(\.\d+)?)");
-            return match.Success
-                ? double.Parse(match.Value, CultureInfo.InvariantCulture)
-                : 0.0;
+            double best = 0.0;
+
+            foreach (Match match in Regex.Matches(structureId, @"\d+(?:[.,]\d+)?"))
+            {
+                double value;
+                if (!double.TryParse(
+                        match.Value.Replace(',', '.'),
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out value))
+                {
+                    continue;
+                }
+
+                if (value > 200.0)
+                {
+                    value /= 100.0;
+                }
+
+                best = Math.Max(best, value);
+            }
+
+            return best;
         }
 
         /// <summary>
-        /// Exporta filas de datos a un archivo CSV simple separado por comas.
+        /// Exporta filas de datos a un archivo CSV, entrecomillando los campos
+        /// que lo requieran.
         /// </summary>
         private static void ExportToCsv(
             string filePath, IEnumerable<string> headers, IEnumerable<IEnumerable<string>> rows)
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Join(",", headers));
+            sb.AppendLine(string.Join(",", headers.Select(EscapeCsvField)));
 
             foreach (var row in rows)
             {
-                sb.AppendLine(string.Join(",", row));
+                sb.AppendLine(string.Join(",", row.Select(EscapeCsvField)));
             }
 
-            File.WriteAllText(filePath, sb.ToString());
+            // UTF-8 con BOM para que Excel respete los acentos al abrir el archivo.
+            File.WriteAllText(filePath, sb.ToString(), new UTF8Encoding(true));
+        }
+
+        /// <summary>
+        /// Entrecomilla el campo si contiene coma, comillas o salto de linea.
+        /// Sin esto, un Id de estructura como "PTV_70,Boost" parte la fila.
+        /// </summary>
+        private static string EscapeCsvField(string field)
+        {
+            if (field == null)
+            {
+                return string.Empty;
+            }
+
+            if (field.IndexOfAny(new[] { ',', '"', '\r', '\n' }) < 0)
+            {
+                return field;
+            }
+
+            return "\"" + field.Replace("\"", "\"\"") + "\"";
         }
     }
 }

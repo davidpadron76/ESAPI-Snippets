@@ -24,7 +24,7 @@
         </Literal>
         <Literal>
           <ID>doseValue</ID>
-          <ToolTip>Valor de dosis (Gy)</ToolTip>
+          <ToolTip>Valor de dosis en Gy (se convierte a la unidad del plan)</ToolTip>
           <Default>20</Default>
         </Literal>
         <Literal>
@@ -33,9 +33,21 @@
           <Default>v20</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[double $volAtDoseVar$ = $planVar$.GetVolumeAtDose(
+      <Code Language="CSharp"><![CDATA[if ($planVar$.Dose == null)
+{
+    MessageBox.Show("El plan no tiene dosis calculada.");
+    return;
+}
+
+// La DoseValue debe estar en la MISMA unidad que el plan: si el plan trabaja
+// en cGy y le pasas Gy, ESAPI lanza excepcion por unidades incompatibles.
+// Construir el umbral a partir de TotalDose.Unit evita el problema.
+DoseValue.DoseUnit planUnit = $planVar$.TotalDose.Unit;
+double threshold = planUnit == DoseValue.DoseUnit.cGy ? $doseValue$ * 100.0 : $doseValue$;
+
+double $volAtDoseVar$ = $planVar$.GetVolumeAtDose(
     $structVar$,
-    new DoseValue($doseValue$, DoseValue.DoseUnit.Gy),
+    new DoseValue(threshold, planUnit),
     VolumePresentation.Relative);
 
 $end$

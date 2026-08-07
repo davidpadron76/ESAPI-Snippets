@@ -28,13 +28,19 @@
           <Default>10</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// Margen simetrico uniforme (en mm)
+      <Code Language="CSharp"><![CDATA[// Margen simetrico uniforme (en mm). ESAPI lanza excepcion si |margen| > 50 mm.
 $targetVar$.SegmentVolume = $sourceVar$.Margin($marginMm$);
 
-// Alternativa asimetrica:
+// Alternativa asimetrica. OJO con el orden de los parametros: son ejes DICOM
+// (X-, Y-, Z-, X+, Y+, Z+), NO anterior/posterior/izq/der/sup/inf.
+// Para un paciente HFS la equivalencia es:
+//   X- = derecha    X+ = izquierda
+//   Y- = anterior   Y+ = posterior
+//   Z- = inferior   Z+ = superior
+// En otras orientaciones (HFP, FFS...) el mapeo cambia: verificalo antes de usar.
 // $targetVar$.SegmentVolume = $sourceVar$.AsymmetricMargin(
 //     new AxisAlignedMargins(StructureMarginGeometry.Expand,
-//         antMm, postMm, leftMm, rightMm, supMm, infMm));
+//         rightMm, antMm, infMm, leftMm, postMm, supMm));
 $end$
 ]]></Code>
     </Snippet>

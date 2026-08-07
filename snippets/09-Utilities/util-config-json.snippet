@@ -18,8 +18,8 @@
           <Default>ScriptConfig</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[using Newtonsoft.Json;
-
+      <Code Language="CSharp"><![CDATA[// Requiere en la cabecera del archivo: using Newtonsoft.Json;
+// (una directiva using no puede ir dentro del cuerpo de la clase)
 private static $configType$ LoadConfig(string jsonPath)
 {
     if (!System.IO.File.Exists(jsonPath))

@@ -18,10 +18,10 @@
           <Default>detectedPtvs</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// Detecta PTVs por prefijo comun y extrae el nivel de dosis del nombre
-// Ej: PTV_70, PTV_59.4, PTV70Gy -> ordenados de mayor a menor dosis
+      <Code Language="CSharp"><![CDATA[// Detecta PTVs y extrae el nivel de dosis del nombre para ordenarlos.
+// Ej: PTV_70, PTV_59.4, PTV70Gy, PTV_2_70Gy -> de mayor a menor dosis.
 List<Structure> $ptvListVar$ = context.StructureSet.Structures
-    .Where(s => s.DicomType == "PTV" && !s.IsEmpty)
+    .Where(s => s.DicomType.Equals("PTV", StringComparison.OrdinalIgnoreCase) && !s.IsEmpty)
     .OrderByDescending(s => ExtractDoseLevelFromName(s.Id))
     .ToList();
 
@@ -33,10 +33,34 @@ if (!$ptvListVar$.Any())
 $end$
 
 // Helper sugerido (agregar como metodo privado de la clase Script):
-// private double ExtractDoseLevelFromName(string structureId)
+// private static double ExtractDoseLevelFromName(string structureId)
 // {
-//     var match = System.Text.RegularExpressions.Regex.Match(structureId, @"(\d+(\.\d+)?)");
-//     return match.Success ? double.Parse(match.Value, System.Globalization.CultureInfo.InvariantCulture) : 0.0;
+//     // Toma el MAYOR numero del Id, no el primero: en "PTV_2_70Gy" el primer
+//     // numero es el indice del nivel (2), no la dosis (70).
+//     var matches = System.Text.RegularExpressions.Regex.Matches(
+//         structureId, @"\d+(?:[.,]\d+)?");
+//     double best = 0.0;
+//
+//     foreach (System.Text.RegularExpressions.Match m in matches)
+//     {
+//         double value;
+//         if (!double.TryParse(m.Value.Replace(',', '.'),
+//                 System.Globalization.NumberStyles.Float,
+//                 System.Globalization.CultureInfo.InvariantCulture, out value))
+//         {
+//             continue;
+//         }
+//
+//         // Normaliza cGy a Gy para poder comparar "PTV_7000" con "PTV_59.4".
+//         if (value > 200.0)
+//         {
+//             value /= 100.0;
+//         }
+//
+//         best = Math.Max(best, value);
+//     }
+//
+//     return best;
 // }
 ]]></Code>
     </Snippet>
