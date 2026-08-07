@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Structures By DICOM Type</Title>
+      <Shortcut>ss-getbydicomtype</Shortcut>
+      <Description>Filtra estructuras por DicomType (PTV, CTV, GTV, ORGAN, etc.).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>listVar</ID>
+          <ToolTip>Nombre de la lista resultante</ToolTip>
+          <Default>ptvList</Default>
+        </Literal>
+        <Literal>
+          <ID>dicomType</ID>
+          <ToolTip>DicomType: PTV, CTV, GTV, ORGAN, EXTERNAL, AVOIDANCE</ToolTip>
+          <Default>PTV</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[List<Structure> $listVar$ = context.StructureSet.Structures
+    .Where(s => s.DicomType.Equals("$dicomType$", StringComparison.OrdinalIgnoreCase) && !s.IsEmpty)
+    .ToList();
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

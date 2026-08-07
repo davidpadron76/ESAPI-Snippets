@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Structure Exists Check</Title>
+      <Shortcut>ss-exists-check</Shortcut>
+      <Description>Verifica existencia y no-vacio de una estructura antes de usarla.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>flagVar</ID>
+          <ToolTip>Nombre del flag booleano</ToolTip>
+          <Default>structureExists</Default>
+        </Literal>
+        <Literal>
+          <ID>structureId</ID>
+          <ToolTip>Id de la estructura</ToolTip>
+          <Default>PTV_High</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[bool $flagVar$ = context.StructureSet.Structures
+    .Any(s => s.Id.Equals("$structureId$", StringComparison.OrdinalIgnoreCase) && !s.IsEmpty);
+
+if (!$flagVar$)
+{
+    $end$
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

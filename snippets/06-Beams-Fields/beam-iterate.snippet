@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Iterate Treatment Beams</Title>
+      <Shortcut>beam-iterate</Shortcut>
+      <Description>Recorre todos los campos de tratamiento del plan (excluye setup fields).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>beamVar</ID>
+          <ToolTip>Variable de iteracion</ToolTip>
+          <Default>beam</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[foreach (Beam $beamVar$ in $planVar$.Beams.Where(b => !b.IsSetupField))
+{
+    $end$
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Show User Error Message</Title>
+      <Shortcut>err-user-message</Shortcut>
+      <Description>Muestra un mensaje de error formateado al usuario via MessageBox.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>errorMessage</ID>
+          <ToolTip>Mensaje de error con formato</ToolTip>
+          <Default>Error: {0}</Default>
+        </Literal>
+        <Literal>
+          <ID>formatArgs</ID>
+          <ToolTip>Argumentos de formato</ToolTip>
+          <Default>ex.Message</Default>
+        </Literal>
+        <Literal>
+          <ID>dialogTitle</ID>
+          <ToolTip>Titulo del dialogo</ToolTip>
+          <Default>Nexus MedPhysics - Error</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[MessageBox.Show(
+    string.Format("$errorMessage$", $formatArgs$),
+    "$dialogTitle$",
+    MessageBoxButton.OK,
+    MessageBoxImage.Warning);
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

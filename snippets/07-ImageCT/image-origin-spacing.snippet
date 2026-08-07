@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Image Origin and Spacing</Title>
+      <Shortcut>image-origin-spacing</Shortcut>
+      <Description>Lee origen (VVector) y espaciado de voxel de la imagen CT.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>imageVar</ID>
+          <ToolTip>Variable de la imagen</ToolTip>
+          <Default>ctImage</Default>
+        </Literal>
+        <Literal>
+          <ID>originVar</ID>
+          <ToolTip>Variable de origen</ToolTip>
+          <Default>imageOrigin</Default>
+        </Literal>
+        <Literal>
+          <ID>xResVar</ID>
+          <ToolTip>Variable resolucion X</ToolTip>
+          <Default>xRes</Default>
+        </Literal>
+        <Literal>
+          <ID>yResVar</ID>
+          <ToolTip>Variable resolucion Y</ToolTip>
+          <Default>yRes</Default>
+        </Literal>
+        <Literal>
+          <ID>zResVar</ID>
+          <ToolTip>Variable resolucion Z</ToolTip>
+          <Default>zRes</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[VVector $originVar$ = $imageVar$.Origin;
+double $xResVar$ = $imageVar$.XRes; // mm
+double $yResVar$ = $imageVar$.YRes; // mm
+double $zResVar$ = $imageVar$.ZRes; // mm (slice thickness)
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Active PlanSetup</Title>
+      <Shortcut>plan-getactive</Shortcut>
+      <Description>Obtiene el PlanSetup activo desde el ScriptContext, con validacion.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[PlanSetup $planVar$ = context.PlanSetup;
+
+if ($planVar$ == null)
+{
+    MessageBox.Show("No hay un plan activo en el contexto.");
+    return;
+}
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Read External JSON Config</Title>
+      <Shortcut>util-config-json</Shortcut>
+      <Description>Lee un archivo de configuracion externo en JSON (requiere referencia a Newtonsoft.Json).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>configType</ID>
+          <ToolTip>Clase que representa la configuracion</ToolTip>
+          <Default>ScriptConfig</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[using Newtonsoft.Json;
+
+private static $configType$ LoadConfig(string jsonPath)
+{
+    if (!System.IO.File.Exists(jsonPath))
+    {
+        throw new System.IO.FileNotFoundException("No se encontro el archivo de configuracion.", jsonPath);
+    }
+
+    string jsonText = System.IO.File.ReadAllText(jsonPath);
+    return JsonConvert.DeserializeObject<$configType$>(jsonText);
+    $end$
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

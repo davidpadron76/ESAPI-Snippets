@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>HU to Density Conversion Check</Title>
+      <Shortcut>image-hu-conversion</Shortcut>
+      <Description>Verifica la tabla de conversion HU a densidad de la imagen (para QA de curva CT).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>imageVar</ID>
+          <ToolTip>Variable de la imagen</ToolTip>
+          <Default>ctImage</Default>
+        </Literal>
+        <Literal>
+          <ID>voxelBuffer</ID>
+          <ToolTip>Buffer de voxeles</ToolTip>
+          <Default>voxels</Default>
+        </Literal>
+        <Literal>
+          <ID>sliceIndex</ID>
+          <ToolTip>Indice del corte axial</ToolTip>
+          <Default>50</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[// Obtener valor de HU de un voxel especifico (ejemplo con VoxelToDisplayValue inverso)
+int[,,] $voxelBuffer$ = new int[$imageVar$.XSize, $imageVar$.YSize, 1];
+$imageVar$.GetVoxels($sliceIndex$, $voxelBuffer$);
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

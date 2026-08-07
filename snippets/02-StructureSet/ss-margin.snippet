@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Apply Margin to Structure</Title>
+      <Shortcut>ss-margin</Shortcut>
+      <Description>Aplica un margen simetrico o asimetrico a una estructura existente.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>targetVar</ID>
+          <ToolTip>Estructura destino</ToolTip>
+          <Default>ring</Default>
+        </Literal>
+        <Literal>
+          <ID>sourceVar</ID>
+          <ToolTip>Estructura origen</ToolTip>
+          <Default>ptv</Default>
+        </Literal>
+        <Literal>
+          <ID>marginMm</ID>
+          <ToolTip>Margen en mm</ToolTip>
+          <Default>10</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[// Margen simetrico uniforme (en mm)
+$targetVar$.SegmentVolume = $sourceVar$.Margin($marginMm$);
+
+// Alternativa asimetrica:
+// $targetVar$.SegmentVolume = $sourceVar$.AsymmetricMargin(
+//     new AxisAlignedMargins(StructureMarginGeometry.Expand,
+//         antMm, postMm, leftMm, rightMm, supMm, infMm));
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

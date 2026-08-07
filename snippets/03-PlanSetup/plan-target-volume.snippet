@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Plan Target Volume</Title>
+      <Shortcut>plan-target-volume</Shortcut>
+      <Description>Obtiene la estructura de volumen blanco (TargetVolumeID) configurada en el plan.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>targetVar</ID>
+          <ToolTip>Variable del target</ToolTip>
+          <Default>targetVolume</Default>
+        </Literal>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[Structure $targetVar$ = $planVar$.TargetVolumeID;
+
+if ($targetVar$ == null)
+{
+    MessageBox.Show("El plan no tiene un volumen blanco (Target Volume) asignado.");
+    return;
+}
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

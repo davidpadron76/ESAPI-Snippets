@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ESAPI Multi-Window Entry Point</Title>
+      <Shortcut>esapi-multiwindow</Shortcut>
+      <Description>Punto de entrada con acceso a Window y ScriptEnvironment (para UI custom con WPF).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>scriptTitle</ID>
+          <ToolTip>Titulo de la ventana</ToolTip>
+          <Default>Nexus MedPhysics Tool</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[using System.Windows;
+using VMS.TPS.Common.Model.API;
+
+namespace VMS.TPS
+{
+    public class Script
+    {
+        public Script()
+        {
+        }
+
+        public void Execute(ScriptContext context, Window window, ScriptEnvironment environment)
+        {
+            window.Title = "$scriptTitle$";
+            window.Width = 800;
+            window.Height = 600;
+
+            $end$
+        }
+    }
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Volume At Dose (Vx)</Title>
+      <Shortcut>dose-get-volume-at-dose</Shortcut>
+      <Description>Obtiene el porcentaje de volumen que recibe al menos X dosis (ej. V95%, V20Gy).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>structVar</ID>
+          <ToolTip>Estructura</ToolTip>
+          <Default>lung</Default>
+        </Literal>
+        <Literal>
+          <ID>doseValue</ID>
+          <ToolTip>Valor de dosis (Gy)</ToolTip>
+          <Default>20</Default>
+        </Literal>
+        <Literal>
+          <ID>volAtDoseVar</ID>
+          <ToolTip>Variable resultado</ToolTip>
+          <Default>v20</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[double $volAtDoseVar$ = $planVar$.GetVolumeAtDose(
+    $structVar$,
+    new DoseValue($doseValue$, DoseValue.DoseUnit.Gy),
+    VolumePresentation.Relative);
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Prescription Data</Title>
+      <Shortcut>plan-rx</Shortcut>
+      <Description>Accede a dosis de prescripcion, dosis por fraccion y numero de fracciones del plan.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>rxDose</ID>
+          <ToolTip>Variable de dosis total</ToolTip>
+          <Default>totalDose</Default>
+        </Literal>
+        <Literal>
+          <ID>dosePerFx</ID>
+          <ToolTip>Variable de dosis por fraccion</ToolTip>
+          <Default>dosePerFraction</Default>
+        </Literal>
+        <Literal>
+          <ID>numFx</ID>
+          <ToolTip>Variable de numero de fracciones</ToolTip>
+          <Default>numFractions</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[DoseValue $rxDose$ = $planVar$.TotalDose;
+double $dosePerFx$ = $planVar$.DosePerFraction.Dose;
+int $numFx$ = $planVar$.NumberOfFractions ?? 0;
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

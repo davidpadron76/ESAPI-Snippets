@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Current CT Image</Title>
+      <Shortcut>image-getcurrent</Shortcut>
+      <Description>Obtiene la imagen CT actual del StructureSet.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>imageVar</ID>
+          <ToolTip>Variable de la imagen</ToolTip>
+          <Default>ctImage</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[Image $imageVar$ = context.StructureSet.Image;
+
+if ($imageVar$ == null)
+{
+    MessageBox.Show("No hay imagen asociada al StructureSet.");
+    return;
+}
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

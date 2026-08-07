@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ESAPI Single Window Entry Point</Title>
+      <Shortcut>esapi-single</Shortcut>
+      <Description>Punto de entrada estandar para scripts ESAPI de una sola ventana (binding v15+).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp"><![CDATA[using VMS.TPS.Common.Model.API;
+using VMS.TPS.Common.Model.Types;
+
+namespace VMS.TPS
+{
+    public class Script
+    {
+        public Script()
+        {
+        }
+
+        public void Execute(ScriptContext context)
+        {
+            if (context.Patient == null)
+            {
+                MessageBox.Show("No hay paciente cargado.");
+                return;
+            }
+
+            $end$
+        }
+    }
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Structure Volume Validation</Title>
+      <Shortcut>ss-volume-check</Shortcut>
+      <Description>Valida que el volumen de una estructura este dentro de un rango esperado.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>volVar</ID>
+          <ToolTip>Variable de volumen</ToolTip>
+          <Default>volume</Default>
+        </Literal>
+        <Literal>
+          <ID>structVar</ID>
+          <ToolTip>Estructura a validar</ToolTip>
+          <Default>structure</Default>
+        </Literal>
+        <Literal>
+          <ID>minVol</ID>
+          <ToolTip>Volumen minimo esperado (cm3)</ToolTip>
+          <Default>0.1</Default>
+        </Literal>
+        <Literal>
+          <ID>maxVol</ID>
+          <ToolTip>Volumen maximo esperado (cm3)</ToolTip>
+          <Default>5000</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[double $volVar$ = $structVar$.Volume; // cm3
+
+if ($volVar$ < $minVol$ || $volVar$ > $maxVol$)
+{
+    MessageBox.Show(string.Format(
+        "Volumen de {0} fuera de rango esperado: {1:F2} cm3", $structVar$.Id, $volVar$));
+    $end$
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

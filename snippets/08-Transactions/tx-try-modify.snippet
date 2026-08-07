@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Try/Catch Modification Block</Title>
+      <Shortcut>tx-try-modify</Shortcut>
+      <Description>Bloque try/catch envolviendo modificaciones al plan, con rollback implicito si falla.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp"><![CDATA[context.Patient.BeginModifications();
+
+try
+{
+    $end$
+}
+catch (Exception ex)
+{
+    MessageBox.Show(string.Format("Error durante la modificacion: {0}", ex.Message));
+    // Nota: en ESAPI, si no se llama SaveModifications(), los cambios no persisten.
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

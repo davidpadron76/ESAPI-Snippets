@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Validate ScriptContext Before Execution</Title>
+      <Shortcut>err-validate-context</Shortcut>
+      <Description>Validacion inicial obligatoria de Patient/Course/Plan antes de ejecutar logica del script.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp"><![CDATA[if (context.Patient == null)
+{
+    MessageBox.Show("No hay paciente cargado en el contexto.");
+    return;
+}
+
+if (context.Course == null)
+{
+    MessageBox.Show("No hay curso activo en el contexto.");
+    return;
+}
+
+if (context.PlanSetup == null)
+{
+    MessageBox.Show("No hay plan activo en el contexto.");
+    return;
+}
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

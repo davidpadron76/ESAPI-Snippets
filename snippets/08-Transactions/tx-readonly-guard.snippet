@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Approved Plan Guard</Title>
+      <Shortcut>tx-readonly-guard</Shortcut>
+      <Description>Verifica que el plan no este aprobado antes de intentar modificarlo.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[if ($planVar$.ApprovalStatus != PlanSetupApprovalStatus.UnApproved)
+{
+    MessageBox.Show(string.Format(
+        "El plan '{0}' esta en estado '{1}' y no puede modificarse.",
+        $planVar$.Id, $planVar$.ApprovalStatus));
+    return;
+}
+
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

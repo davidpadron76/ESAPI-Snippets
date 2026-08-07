@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Structure Boolean Operations</Title>
+      <Shortcut>ss-boolean-ops</Shortcut>
+      <Description>Operaciones booleanas entre estructuras: union, resta, interseccion.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>resultVar</ID>
+          <ToolTip>Estructura resultado</ToolTip>
+          <Default>resultStructure</Default>
+        </Literal>
+        <Literal>
+          <ID>structA</ID>
+          <ToolTip>Primera estructura</ToolTip>
+          <Default>structureA</Default>
+        </Literal>
+        <Literal>
+          <ID>structB</ID>
+          <ToolTip>Segunda estructura</ToolTip>
+          <Default>structureB</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[// Union
+$resultVar$.SegmentVolume = $structA$.Or($structB$.Margin(0));
+
+// Resta (A - B)
+// $resultVar$.SegmentVolume = $structA$.Sub($structB$.Margin(0));
+
+// Interseccion
+// $resultVar$.SegmentVolume = $structA$.And($structB$.Margin(0));
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

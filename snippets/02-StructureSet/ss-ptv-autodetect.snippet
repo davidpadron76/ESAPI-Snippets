@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>PTV Auto-Detection by Naming Convention</Title>
+      <Shortcut>ss-ptv-autodetect</Shortcut>
+      <Description>Deteccion dinamica de PTVs por convencion de nombre y ordenamiento por nivel de dosis (patron usado en Shulman SIB).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>ptvListVar</ID>
+          <ToolTip>Nombre de la lista de PTVs detectados</ToolTip>
+          <Default>detectedPtvs</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[// Detecta PTVs por prefijo comun y extrae el nivel de dosis del nombre
+// Ej: PTV_70, PTV_59.4, PTV70Gy -> ordenados de mayor a menor dosis
+List<Structure> $ptvListVar$ = context.StructureSet.Structures
+    .Where(s => s.DicomType == "PTV" && !s.IsEmpty)
+    .OrderByDescending(s => ExtractDoseLevelFromName(s.Id))
+    .ToList();
+
+if (!$ptvListVar$.Any())
+{
+    MessageBox.Show("No se detectaron estructuras PTV en el StructureSet.");
+    return;
+}
+$end$
+
+// Helper sugerido (agregar como metodo privado de la clase Script):
+// private double ExtractDoseLevelFromName(string structureId)
+// {
+//     var match = System.Text.RegularExpressions.Regex.Match(structureId, @"(\d+(\.\d+)?)");
+//     return match.Success ? double.Parse(match.Value, System.Globalization.CultureInfo.InvariantCulture) : 0.0;
+// }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

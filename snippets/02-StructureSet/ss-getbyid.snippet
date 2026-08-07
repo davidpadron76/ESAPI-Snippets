@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Get Structure By Id</Title>
+      <Shortcut>ss-getbyid</Shortcut>
+      <Description>Obtiene una estructura del StructureSet por su Id, con validacion null-safe.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>structVar</ID>
+          <ToolTip>Nombre de la variable</ToolTip>
+          <Default>structure</Default>
+        </Literal>
+        <Literal>
+          <ID>structureId</ID>
+          <ToolTip>Id de la estructura a buscar</ToolTip>
+          <Default>PTV_High</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[Structure $structVar$ = context.StructureSet.Structures
+    .FirstOrDefault(s => s.Id.Equals("$structureId$", StringComparison.OrdinalIgnoreCase));
+
+if ($structVar$ == null)
+{
+    MessageBox.Show("No se encontro la estructura '$structureId$'.");
+    return;
+}
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

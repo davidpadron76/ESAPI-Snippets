@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Navigate Patient -&gt; Course -&gt; PlanSetup</Title>
+      <Shortcut>plan-getcourse</Shortcut>
+      <Description>Navega la jerarquia completa para ubicar un plan especifico por Id de curso y plan.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>courseVar</ID>
+          <ToolTip>Variable del curso</ToolTip>
+          <Default>course</Default>
+        </Literal>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>courseId</ID>
+          <ToolTip>Id del curso</ToolTip>
+          <Default>C1</Default>
+        </Literal>
+        <Literal>
+          <ID>planId</ID>
+          <ToolTip>Id del plan</ToolTip>
+          <Default>SIB_VMAT</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[Course $courseVar$ = context.Patient.Courses
+    .FirstOrDefault(c => c.Id.Equals("$courseId$", StringComparison.OrdinalIgnoreCase));
+
+PlanSetup $planVar$ = $courseVar$?.PlanSetups
+    .FirstOrDefault(p => p.Id.Equals("$planId$", StringComparison.OrdinalIgnoreCase));
+
+if ($planVar$ == null)
+{
+    MessageBox.Show("No se encontro el plan '$planId$' en el curso '$courseId$'.");
+    return;
+}
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

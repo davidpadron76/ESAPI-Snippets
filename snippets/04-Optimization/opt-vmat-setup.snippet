@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>VMAT Optimization Setup</Title>
+      <Shortcut>opt-vmat-setup</Shortcut>
+      <Description>Configuracion basica de arcos VMAT antes de optimizar (numero de arcos, colimador).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan VMAT</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>beamVar</ID>
+          <ToolTip>Variable de iteracion de beam</ToolTip>
+          <Default>beam</Default>
+        </Literal>
+        <Literal>
+          <ID>gantryStart</ID>
+          <ToolTip>Angulo inicial de gantry</ToolTip>
+          <Default>gantryStart</Default>
+        </Literal>
+        <Literal>
+          <ID>gantryStop</ID>
+          <ToolTip>Angulo final de gantry</ToolTip>
+          <Default>gantryStop</Default>
+        </Literal>
+        <Literal>
+          <ID>collAngle</ID>
+          <ToolTip>Angulo de colimador</ToolTip>
+          <Default>collimatorAngle</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[// Iterar sobre los beams de un plan VMAT para revisar configuracion de arco
+foreach (Beam $beamVar$ in $planVar$.Beams.Where(b => !b.IsSetupField))
+{
+    double $gantryStart$ = $beamVar$.ControlPoints.First().GantryAngle;
+    double $gantryStop$ = $beamVar$.ControlPoints.Last().GantryAngle;
+    double $collAngle$ = $beamVar$.ControlPoints.First().CollimatorAngle;
+
+    $end$
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

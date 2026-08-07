@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Create Empty Structure</Title>
+      <Shortcut>ss-create-structure</Shortcut>
+      <Description>Crea una estructura nueva vacia en el StructureSet activo (requiere BeginModifications previo).</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>newStructVar</ID>
+          <ToolTip>Variable de la nueva estructura</ToolTip>
+          <Default>newStructure</Default>
+        </Literal>
+        <Literal>
+          <ID>dicomType</ID>
+          <ToolTip>DicomType de la nueva estructura</ToolTip>
+          <Default>CONTROL</Default>
+        </Literal>
+        <Literal>
+          <ID>structureId</ID>
+          <ToolTip>Id de la nueva estructura (max 16 caracteres)</ToolTip>
+          <Default>Ring_1cm</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[Structure $newStructVar$ = context.StructureSet.AddStructure("$dicomType$", "$structureId$");
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

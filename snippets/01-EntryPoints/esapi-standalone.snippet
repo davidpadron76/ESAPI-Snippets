@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>ESAPI Standalone Console Entry Point</Title>
+      <Shortcut>esapi-standalone</Shortcut>
+      <Description>Entry point para ejecutables standalone que referencian los ensamblados ESAPI fuera de Eclipse.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>namespace</ID>
+          <ToolTip>Namespace del proyecto</ToolTip>
+          <Default>NexusMedPhysics.Standalone</Default>
+        </Literal>
+        <Literal>
+          <ID>patientId</ID>
+          <ToolTip>ID del paciente (MRN)</ToolTip>
+          <Default>PATIENT_ID</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[using System;
+using VMS.TPS.Common.Model.API;
+
+namespace $namespace$
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            using (Application app = Application.CreateApplication())
+            {
+                Patient patient = app.OpenPatientById("$patientId$");
+                if (patient == null)
+                {
+                    Console.WriteLine("Paciente no encontrado.");
+                    return;
+                }
+
+                patient.BeginModifications();
+
+                $end$
+
+                app.SaveModifications();
+                app.ClosePatient();
+            }
+        }
+    }
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

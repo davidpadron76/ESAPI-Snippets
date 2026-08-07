@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Unit Conversion Helpers</Title>
+      <Shortcut>util-unit-convert</Shortcut>
+      <Description>Conversiones comunes cGy&lt;-&gt;Gy, mm&lt;-&gt;cm usadas en scripts ESAPI.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>cgyVar</ID>
+          <ToolTip>Variable resultado cGy</ToolTip>
+          <Default>doseCGy</Default>
+        </Literal>
+        <Literal>
+          <ID>gyValue</ID>
+          <ToolTip>Valor de entrada en Gy</ToolTip>
+          <Default>gyValue</Default>
+        </Literal>
+        <Literal>
+          <ID>gyVar</ID>
+          <ToolTip>Variable resultado Gy</ToolTip>
+          <Default>doseGy</Default>
+        </Literal>
+        <Literal>
+          <ID>cgyValue</ID>
+          <ToolTip>Valor de entrada en cGy</ToolTip>
+          <Default>cgyValue</Default>
+        </Literal>
+        <Literal>
+          <ID>cmVar</ID>
+          <ToolTip>Variable resultado cm</ToolTip>
+          <Default>lengthCm</Default>
+        </Literal>
+        <Literal>
+          <ID>mmValue</ID>
+          <ToolTip>Valor de entrada en mm</ToolTip>
+          <Default>mmValue</Default>
+        </Literal>
+        <Literal>
+          <ID>mmVar</ID>
+          <ToolTip>Variable resultado mm</ToolTip>
+          <Default>lengthMm</Default>
+        </Literal>
+        <Literal>
+          <ID>cmValue</ID>
+          <ToolTip>Valor de entrada en cm</ToolTip>
+          <Default>cmValue</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[double $cgyVar$ = $gyValue$ * 100.0;   // Gy -> cGy
+double $gyVar$ = $cgyValue$ / 100.0;    // cGy -> Gy
+double $cmVar$ = $mmValue$ / 10.0;      // mm -> cm
+double $mmVar$ = $cmValue$ * 10.0;      // cm -> mm
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Add Optimization Objective</Title>
+      <Shortcut>opt-objective-add</Shortcut>
+      <Description>Agrega un objetivo de optimizacion tipo punto (upper/lower) a una estructura.</Description>
+      <Author>David Padron - Nexus MedPhysics</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan (debe ser ExternalPlanSetup)</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>structVar</ID>
+          <ToolTip>Estructura objetivo</ToolTip>
+          <Default>ptv</Default>
+        </Literal>
+        <Literal>
+          <ID>operatorType</ID>
+          <ToolTip>Upper o Lower</ToolTip>
+          <Default>Upper</Default>
+        </Literal>
+        <Literal>
+          <ID>doseValue</ID>
+          <ToolTip>Valor de dosis (Gy)</ToolTip>
+          <Default>70.0</Default>
+        </Literal>
+        <Literal>
+          <ID>volumePercent</ID>
+          <ToolTip>Porcentaje de volumen</ToolTip>
+          <Default>5.0</Default>
+        </Literal>
+        <Literal>
+          <ID>priority</ID>
+          <ToolTip>Prioridad del objetivo</ToolTip>
+          <Default>100</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[$planVar$.OptimizationSetup.AddPointObjective(
+    $structVar$,
+    OptimizationObjectiveOperator.$operatorType$,
+    new DoseValue($doseValue$, DoseValue.DoseUnit.Gy),
+    $volumePercent$,
+    $priority$);
+$end$
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
