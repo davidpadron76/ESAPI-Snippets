@@ -14,16 +14,40 @@
       <Code Language="CSharp"><![CDATA[private static void ExportToCsv(string filePath, IEnumerable<string> headers, IEnumerable<IEnumerable<string>> rows)
 {
     var sb = new System.Text.StringBuilder();
-    sb.AppendLine(string.Join(",", headers));
+    sb.AppendLine(string.Join(",", headers.Select(EscapeCsvField)));
 
     foreach (var row in rows)
     {
-        sb.AppendLine(string.Join(",", row));
+        sb.AppendLine(string.Join(",", row.Select(EscapeCsvField)));
     }
 
-    System.IO.File.WriteAllText(filePath, sb.ToString());
+    // UTF-8 con BOM para que Excel respete acentos al abrir el archivo.
+    System.IO.File.WriteAllText(filePath, sb.ToString(), new System.Text.UTF8Encoding(true));
     $end$
 }
+
+/// <summary>
+/// Entrecomilla el campo si contiene coma, comillas o salto de linea.
+/// Sin esto, un Id de estructura como "PTV_70,Boost" parte la fila.
+/// </summary>
+private static string EscapeCsvField(string field)
+{
+    if (field == null)
+    {
+        return string.Empty;
+    }
+
+    if (field.IndexOfAny(new[] { ',', '"', '\r', '\n' }) < 0)
+    {
+        return field;
+    }
+
+    return "\"" + field.Replace("\"", "\"\"") + "\"";
+}
+
+// Recordatorio: formatea SIEMPRE los numeros con CultureInfo.InvariantCulture
+// antes de pasarlos aqui. En Windows en espanol, 70.5.ToString("F2") produce
+// "70,50" y rompe el CSV.
 ]]></Code>
     </Snippet>
   </CodeSnippet>

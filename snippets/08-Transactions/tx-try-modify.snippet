@@ -11,7 +11,8 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Code Language="CSharp"><![CDATA[context.Patient.BeginModifications();
+      <Code Language="CSharp"><![CDATA[// Requiere [assembly: ESAPIScript(IsWriteable = true)] en Eclipse v16+.
+context.Patient.BeginModifications();
 
 try
 {
@@ -19,8 +20,11 @@ try
 }
 catch (Exception ex)
 {
+    // OJO: ESAPI NO hace rollback. Los cambios ya aplicados siguen vivos en el
+    // objeto en memoria; lo unico que evita este catch es que se persistan al
+    // guardar. Si la operacion es parcialmente destructiva, deshaz a mano lo
+    // que hayas alcanzado a modificar antes de la excepcion.
     MessageBox.Show(string.Format("Error durante la modificacion: {0}", ex.Message));
-    // Nota: en ESAPI, si no se llama SaveModifications(), los cambios no persisten.
 }
 ]]></Code>
     </Snippet>

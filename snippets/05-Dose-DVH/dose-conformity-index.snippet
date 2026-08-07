@@ -23,18 +23,42 @@
           <Default>ptv</Default>
         </Literal>
         <Literal>
-          <ID>prescriptionIsoVolume</ID>
-          <ToolTip>Volumen cubierto por isodosis de prescripcion (cm3)</ToolTip>
-          <Default>prescriptionIsoVolume</Default>
+          <ID>planVar</ID>
+          <ToolTip>Variable del plan</ToolTip>
+          <Default>plan</Default>
+        </Literal>
+        <Literal>
+          <ID>bodyVar</ID>
+          <ToolTip>Estructura EXTERNAL / BODY sobre la que se mide la isodosis</ToolTip>
+          <Default>body</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// CI = Volumen cubierto por la isodosis de prescripcion / Volumen del PTV
-double $ciVar$ = $prescriptionIsoVolume$ / $structVar$.Volume;
+      <Code Language="CSharp"><![CDATA[// CI (RTOG) = Volumen del cuerpo cubierto por la isodosis de prescripcion
+//             / Volumen del PTV
+if ($planVar$.Dose == null)
+{
+    MessageBox.Show("El plan no tiene dosis calculada; no se puede evaluar el CI.");
+    return;
+}
+
+Structure $bodyVar$ = $planVar$.StructureSet.Structures
+    .FirstOrDefault(s => s.DicomType.Equals("EXTERNAL", StringComparison.OrdinalIgnoreCase));
+
+if ($bodyVar$ == null)
+{
+    MessageBox.Show("No se encontro la estructura EXTERNAL (BODY) del StructureSet.");
+    return;
+}
+
+// TotalDose ya viene en las unidades del plan, asi no hay desajuste Gy/cGy.
+double prescriptionIsoVolume = $planVar$.GetVolumeAtDose(
+    $bodyVar$,
+    $planVar$.TotalDose,
+    VolumePresentation.AbsoluteCm3);
+
+double $ciVar$ = prescriptionIsoVolume / $structVar$.Volume;
 
 $end$
-
-// Nota: prescriptionIsoVolume debe obtenerse iterando el DoseProfile o
-// usando GetStructureDVHEstimate segun disponibilidad de la version ESAPI.
 ]]></Code>
     </Snippet>
   </CodeSnippet>

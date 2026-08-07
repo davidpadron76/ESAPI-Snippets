@@ -11,7 +11,11 @@
       </SnippetTypes>
     </Header>
     <Snippet>
-      <Code Language="CSharp"><![CDATA[context.Patient.BeginModifications();
+      <Code Language="CSharp"><![CDATA[// En Eclipse v16 y superiores, todo script que escriba necesita ademas este
+// atributo a nivel de ensamblado (fuera de cualquier namespace):
+//     [assembly: ESAPIScript(IsWriteable = true)]
+// Sin el, BeginModifications() falla en tiempo de ejecucion.
+context.Patient.BeginModifications();
 
 $end$
 ]]></Code>
