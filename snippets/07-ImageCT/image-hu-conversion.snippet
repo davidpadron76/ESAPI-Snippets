@@ -2,9 +2,9 @@
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
   <CodeSnippet Format="1.0.0">
     <Header>
-      <Title>HU to Density Conversion Check</Title>
+      <Title>Read Voxel Values and Convert to HU</Title>
       <Shortcut>image-hu-conversion</Shortcut>
-      <Description>Verifica la tabla de conversion HU a densidad de la imagen (para QA de curva CT).</Description>
+      <Description>Lee un corte axial de la imagen y convierte los voxeles crudos a HU con VoxelToDisplayValue (util para QA de curva CT).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -28,9 +28,13 @@
           <Default>50</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// Obtener valor de HU de un voxel especifico (ejemplo con VoxelToDisplayValue inverso)
-int[,,] $voxelBuffer$ = new int[$imageVar$.XSize, $imageVar$.YSize, 1];
+      <Code Language="CSharp"><![CDATA[// GetVoxels llena un plano axial completo: el buffer es 2D [XSize, YSize], no 3D.
+int[,] $voxelBuffer$ = new int[$imageVar$.XSize, $imageVar$.YSize];
 $imageVar$.GetVoxels($sliceIndex$, $voxelBuffer$);
+
+// Los valores crudos son especificos del almacenamiento interno de Eclipse.
+// VoxelToDisplayValue los convierte a la escala mostrada (HU en imagenes CT).
+double huValue = $imageVar$.VoxelToDisplayValue($voxelBuffer$[$imageVar$.XSize / 2, $imageVar$.YSize / 2]);
 
 $end$
 ]]></Code>
