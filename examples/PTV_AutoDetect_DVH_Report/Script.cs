@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------
 // Ejemplo de referencia - ESAPI-Snippets (Nexus MedPhysics)
 //
-// Detecta automaticamente todos los PTV de un plan SIB por convencion de
+// Detecta automáticamente todos los PTV de un plan SIB por convención de
 // nombre, calcula D95% y D2% para cada uno, y exporta un reporte CSV al
 // escritorio del usuario.
 //
@@ -34,7 +34,7 @@ namespace VMS.TPS
         {
             try
             {
-                // --- Validacion de contexto (snippet: err-validate-context) ---
+                // --- Validación de contexto (snippet: err-validate-context) ---
                 if (context.Patient == null)
                 {
                     MessageBox.Show("No hay paciente cargado en el contexto.");
@@ -61,14 +61,14 @@ namespace VMS.TPS
 
                 PlanSetup plan = context.PlanSetup;
 
-                // GetDoseAtVolume lanza excepcion si el plan no tiene dosis calculada.
+                // GetDoseAtVolume lanza excepción si el plan no tiene dosis calculada.
                 if (plan.Dose == null)
                 {
                     MessageBox.Show("El plan no tiene dosis calculada; no se puede generar el reporte.");
                     return;
                 }
 
-                // --- Deteccion dinamica de PTVs (snippet: ss-ptv-autodetect) ---
+                // --- Detección dinámica de PTVs (snippet: ss-ptv-autodetect) ---
                 List<Structure> detectedPtvs = context.StructureSet.Structures
                     .Where(s => s.DicomType.Equals("PTV", StringComparison.OrdinalIgnoreCase) && !s.IsEmpty)
                     .OrderByDescending(s => ExtractDoseLevelFromName(s.Id))
@@ -81,8 +81,8 @@ namespace VMS.TPS
                 }
 
                 // --- Calculo de metricas DVH por PTV (snippet: dose-get-d-at-volume) ---
-                // La unidad absoluta la define la configuracion de Eclipse (Gy o cGy),
-                // asi que se lee del plan en vez de asumirla en los encabezados.
+                // La unidad absoluta la define la configuración de Eclipse (Gy o cGy),
+                // así que se lee del plan en vez de asumirla en los encabezados.
                 string doseUnit = plan.TotalDose.UnitAsString;
                 var rows = new List<IEnumerable<string>>();
 
@@ -103,7 +103,7 @@ namespace VMS.TPS
                     });
                 }
 
-                // --- Exportacion a CSV (snippet: util-export-csv) ---
+                // --- Exportación a CSV (snippet: util-export-csv) ---
                 string fileName = string.Format(
                     "PTV_Report_{0}_{1:yyyyMMdd_HHmmss}.csv",
                     plan.Id, DateTime.Now);
@@ -127,7 +127,7 @@ namespace VMS.TPS
             // --- Manejo de errores (snippet: err-esapi-exception) ---
             catch (ApplicationException appEx)
             {
-                MessageBox.Show(string.Format("Error de aplicacion ESAPI: {0}", appEx.Message));
+                MessageBox.Show(string.Format("Error de aplicación ESAPI: {0}", appEx.Message));
             }
             catch (Exception ex)
             {
@@ -136,12 +136,12 @@ namespace VMS.TPS
         }
 
         /// <summary>
-        /// Extrae el nivel de dosis numerico embebido en el nombre de la estructura.
+        /// Extrae el nivel de dosis numérico embebido en el nombre de la estructura.
         /// Soporta formatos como "PTV_70", "PTV70Gy", "PTV_59.4", "PTV_7000".
         /// </summary>
         /// <remarks>
-        /// Toma el mayor numero presente en el Id, no el primero: en un Id como
-        /// "PTV_2_70Gy" el primer numero es el indice del nivel, no la dosis.
+        /// Toma el mayor número presente en el Id, no el primero: en un Id como
+        /// "PTV_2_70Gy" el primer número es el índice del nivel, no la dosis.
         /// Los valores que parecen cGy se normalizan a Gy para poder compararlos.
         /// </remarks>
         private static double ExtractDoseLevelFromName(string structureId)
@@ -191,7 +191,7 @@ namespace VMS.TPS
         }
 
         /// <summary>
-        /// Entrecomilla el campo si contiene coma, comillas o salto de linea.
+        /// Entrecomilla el campo si contiene coma, comillas o salto de línea.
         /// Sin esto, un Id de estructura como "PTV_70,Boost" parte la fila.
         /// </summary>
         private static string EscapeCsvField(string field)

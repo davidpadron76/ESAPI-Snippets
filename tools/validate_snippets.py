@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Valida los archivos .snippet de la coleccion ESAPI-Snippets.
+"""Valida los archivos .snippet de la colección ESAPI-Snippets.
 
 Comprueba, para cada archivo bajo snippets/<categoria>/:
 
@@ -8,13 +8,13 @@ Comprueba, para cada archivo bajo snippets/<categoria>/:
     Description, Author, SnippetType)
   * que el bloque Code declare Language="CSharp" y contenga el marcador $end$
   * que el Shortcut coincida con el nombre del archivo
-  * que no haya Shortcuts duplicados en toda la coleccion
-  * que cada Literal declarado se use en el codigo y viceversa
+  * que no haya Shortcuts duplicados en toda la colección
+  * que cada Literal declarado se use en el código y viceversa
 
 Uso:
     python3 tools/validate_snippets.py [--root .]
 
-Devuelve 0 si todo esta correcto, 1 si hay algun error.
+Devuelve 0 si todo está correcto, 1 si hay algún error.
 """
 
 import argparse
@@ -69,7 +69,7 @@ def validate_file(path, root):
     for field in REQUIRED_HEADER_FIELDS:
         element = header.find("s:%s" % field, NS)
         if element is None or not (element.text or "").strip():
-            errors.append("%s: falta <%s> o esta vacio" % (rel, field))
+            errors.append("%s: falta <%s> o está vacío" % (rel, field))
         else:
             values[field] = element.text.strip()
 
@@ -98,7 +98,7 @@ def validate_file(path, root):
     body = code.text or ""
     if "$end$" not in body:
         errors.append(
-            "%s: el codigo no define $end$ (posicion final del cursor)" % rel
+            "%s: el código no define $end$ (posición final del cursor)" % rel
         )
 
     declared = set()
@@ -113,12 +113,12 @@ def validate_file(path, root):
 
     for orphan in sorted(declared - used):
         errors.append(
-            "%s: el literal '%s' se declara pero no se usa en el codigo" % (rel, orphan)
+            "%s: el literal '%s' se declara pero no se usa en el código" % (rel, orphan)
         )
 
     for missing in sorted(used - declared):
         errors.append(
-            "%s: el codigo usa $%s$ pero no esta declarado como <Literal>"
+            "%s: el código usa $%s$ pero no está declarado como <Literal>"
             % (rel, missing)
         )
 
@@ -136,7 +136,7 @@ def main():
 
     paths = find_snippets(args.root)
     if not paths:
-        print("ERROR: no se encontro ningun .snippet bajo snippets/")
+        print("ERROR: no se encontró ningún .snippet bajo snippets/")
         return 1
 
     all_errors = []
@@ -157,12 +157,12 @@ def main():
             )
 
     if all_errors:
-        print("Validacion FALLIDA (%d problema(s)):\n" % len(all_errors))
+        print("Validación FALLIDA (%d problema(s)):\n" % len(all_errors))
         for error in all_errors:
             print("  - %s" % error)
         return 1
 
-    print("Validacion OK: %d snippets, %d shortcuts unicos." % (len(paths), len(shortcuts)))
+    print("Validación OK: %d snippets, %d shortcuts únicos." % (len(paths), len(shortcuts)))
     return 0
 
 

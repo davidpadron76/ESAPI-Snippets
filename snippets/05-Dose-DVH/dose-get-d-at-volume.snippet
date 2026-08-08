@@ -33,15 +33,15 @@
           <Default>d95</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// GetDoseAtVolume lanza excepcion si el plan no tiene dosis calculada.
+      <Code Language="CSharp"><![CDATA[// GetDoseAtVolume lanza excepción si el plan no tiene dosis calculada.
 if ($planVar$.Dose == null)
 {
     MessageBox.Show("El plan no tiene dosis calculada.");
     return;
 }
 
-// El resultado viene en las unidades absolutas del plan (Gy o cGy segun
-// configuracion de Eclipse): usa .UnitAsString al reportarlo, no asumas Gy.
+// El resultado viene en las unidades absolutas del plan (Gy o cGy según
+// configuración de Eclipse): usa .UnitAsString al reportarlo, no asumas Gy.
 DoseValue $doseAtVolVar$ = $planVar$.GetDoseAtVolume(
     $structVar$,
     $volumePercent$,

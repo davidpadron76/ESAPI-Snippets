@@ -4,7 +4,7 @@
     <Header>
       <Title>Navigate Patient -&gt; Course -&gt; PlanSetup</Title>
       <Shortcut>plan-getcourse</Shortcut>
-      <Description>Navega la jerarquia completa para ubicar un plan especifico por Id de curso y plan.</Description>
+      <Description>Navega la jerarquía completa para ubicar un plan específico por Id de curso y plan.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -41,7 +41,7 @@ PlanSetup $planVar$ = $courseVar$?.PlanSetups
 
 if ($planVar$ == null)
 {
-    MessageBox.Show("No se encontro el plan '$planId$' en el curso '$courseId$'.");
+    MessageBox.Show("No se encontró el plan '$planId$' en el curso '$courseId$'.");
     return;
 }
 $end$

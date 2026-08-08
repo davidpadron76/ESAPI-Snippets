@@ -40,7 +40,7 @@
 }
 
 // La DoseValue debe estar en la MISMA unidad que el plan: si el plan trabaja
-// en cGy y le pasas Gy, ESAPI lanza excepcion por unidades incompatibles.
+// en cGy y le pasas Gy, ESAPI lanza excepción por unidades incompatibles.
 // Construir el umbral a partir de TotalDose.Unit evita el problema.
 DoseValue.DoseUnit planUnit = $planVar$.TotalDose.Unit;
 double threshold = planUnit == DoseValue.DoseUnit.cGy ? $doseValue$ * 100.0 : $doseValue$;

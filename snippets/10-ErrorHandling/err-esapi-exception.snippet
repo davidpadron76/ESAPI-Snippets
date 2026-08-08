@@ -4,7 +4,7 @@
     <Header>
       <Title>Catch ESAPI-Specific Exception</Title>
       <Shortcut>err-esapi-exception</Shortcut>
-      <Description>Captura especifica de ApplicationException tipica de fallas de licencia/contexto ESAPI.</Description>
+      <Description>Captura específica de ApplicationException tipica de fallas de licencia/contexto ESAPI.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -17,7 +17,7 @@
 }
 catch (ApplicationException appEx)
 {
-    MessageBox.Show(string.Format("Error de aplicacion ESAPI: {0}", appEx.Message));
+    MessageBox.Show(string.Format("Error de aplicación ESAPI: {0}", appEx.Message));
 }
 catch (Exception ex)
 {

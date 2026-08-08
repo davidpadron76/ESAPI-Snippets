@@ -3,13 +3,13 @@
   <!--
     Proyecto de referencia para el script de ejemplo (binary plugin de Eclipse).
 
-    Ajusta VarianApiDir a la ruta de tu instalacion antes de compilar, o pasala
-    en linea de comandos:
+    Ajusta VarianApiDir a la ruta de tu instalación antes de compilar, o pásala
+    en línea de comandos:
 
         msbuild /p:VarianApiDir="C:\Program Files (x86)\Varian\RTM\16.1\esapi\API\"
 
     ESAPI solo funciona en Windows, sobre .NET Framework y en x64: este archivo
-    no compila en el CI de este repositorio, es una plantilla para tu maquina.
+    no compila en el CI de este repositorio, es una plantilla para tu máquina.
   -->
 
   <PropertyGroup>

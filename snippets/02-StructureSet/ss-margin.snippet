@@ -4,7 +4,7 @@
     <Header>
       <Title>Apply Margin to Structure</Title>
       <Shortcut>ss-margin</Shortcut>
-      <Description>Aplica un margen simetrico o asimetrico a una estructura existente.</Description>
+      <Description>Aplica un margen simétrico o asimétrico a una estructura existente.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -28,16 +28,16 @@
           <Default>10</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// Margen simetrico uniforme (en mm). ESAPI lanza excepcion si |margen| > 50 mm.
+      <Code Language="CSharp"><![CDATA[// Margen simétrico uniforme (en mm). ESAPI lanza excepción si |margen| > 50 mm.
 $targetVar$.SegmentVolume = $sourceVar$.Margin($marginMm$);
 
-// Alternativa asimetrica. OJO con el orden de los parametros: son ejes DICOM
+// Alternativa asimétrica. OJO con el orden de los parámetros: son ejes DICOM
 // (X-, Y-, Z-, X+, Y+, Z+), NO anterior/posterior/izq/der/sup/inf.
 // Para un paciente HFS la equivalencia es:
 //   X- = derecha    X+ = izquierda
 //   Y- = anterior   Y+ = posterior
 //   Z- = inferior   Z+ = superior
-// En otras orientaciones (HFP, FFS...) el mapeo cambia: verificalo antes de usar.
+// En otras orientaciones (HFP, FFS...) el mapeo cambia: verifícalo antes de usar.
 // $targetVar$.SegmentVolume = $sourceVar$.AsymmetricMargin(
 //     new AxisAlignedMargins(StructureMarginGeometry.Expand,
 //         rightMm, antMm, infMm, leftMm, postMm, supMm));

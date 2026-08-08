@@ -4,7 +4,7 @@
     <Header>
       <Title>Create Empty Structure</Title>
       <Shortcut>ss-create-structure</Shortcut>
-      <Description>Crea una estructura nueva vacia en el StructureSet activo (requiere BeginModifications previo).</Description>
+      <Description>Crea una estructura nueva vacía en el StructureSet activo (requiere BeginModifications previo).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -28,11 +28,11 @@
           <Default>Ring_1cm</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// AddStructure lanza excepcion si el Id ya existe, excede 16 caracteres o el
+      <Code Language="CSharp"><![CDATA[// AddStructure lanza excepción si el Id ya existe, excede 16 caracteres o el
 // StructureSet no admite ese DicomType. CanAddStructure lo verifica antes.
 if (!context.StructureSet.CanAddStructure("$dicomType$", "$structureId$"))
 {
-    MessageBox.Show("No se puede crear la estructura '$structureId$' (Id duplicado, invalido o tipo no admitido).");
+    MessageBox.Show("No se puede crear la estructura '$structureId$' (Id duplicado, inválido o tipo no admitido).");
     return;
 }
 

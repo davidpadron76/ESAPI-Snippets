@@ -27,7 +27,7 @@
 }
 
 /// <summary>
-/// Entrecomilla el campo si contiene coma, comillas o salto de linea.
+/// Entrecomilla el campo si contiene coma, comillas o salto de línea.
 /// Sin esto, un Id de estructura como "PTV_70,Boost" parte la fila.
 /// </summary>
 private static string EscapeCsvField(string field)
@@ -45,8 +45,8 @@ private static string EscapeCsvField(string field)
     return "\"" + field.Replace("\"", "\"\"") + "\"";
 }
 
-// Recordatorio: formatea SIEMPRE los numeros con CultureInfo.InvariantCulture
-// antes de pasarlos aqui. En Windows en espanol, 70.5.ToString("F2") produce
+// Recordatorio: formatea SIEMPRE los números con CultureInfo.InvariantCulture
+// antes de pasarlos aquí. En Windows en español, 70.5.ToString("F2") produce
 // "70,50" y rompe el CSV.
 ]]></Code>
     </Snippet>

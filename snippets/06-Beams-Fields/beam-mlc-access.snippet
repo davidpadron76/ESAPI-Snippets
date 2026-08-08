@@ -4,7 +4,7 @@
     <Header>
       <Title>Access MLC Leaf Positions</Title>
       <Shortcut>beam-mlc-access</Shortcut>
-      <Description>Accede a las posiciones de las laminas MLC por control point.</Description>
+      <Description>Accede a las posiciones de las láminas MLC por control point.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -31,8 +31,8 @@
       <Code Language="CSharp"><![CDATA[foreach (ControlPoint $cpVar$ in $beamVar$.ControlPoints)
 {
     float[,] $mlcPositions$ = $cpVar$.LeafPositions;
-    // $mlcPositions$[0, i] = banco A, lamina i (mm)
-    // $mlcPositions$[1, i] = banco B, lamina i (mm)
+    // $mlcPositions$[0, i] = banco A, lámina i (mm)
+    // $mlcPositions$[1, i] = banco B, lámina i (mm)
 
     $end$
 }

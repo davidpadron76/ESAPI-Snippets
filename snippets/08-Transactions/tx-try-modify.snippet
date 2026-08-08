@@ -4,7 +4,7 @@
     <Header>
       <Title>Try/Catch Modification Block</Title>
       <Shortcut>tx-try-modify</Shortcut>
-      <Description>Bloque try/catch envolviendo modificaciones al plan, con rollback implicito si falla.</Description>
+      <Description>Bloque try/catch envolviendo modificaciones al plan, con rollback implícito si falla.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -21,10 +21,10 @@ try
 catch (Exception ex)
 {
     // OJO: ESAPI NO hace rollback. Los cambios ya aplicados siguen vivos en el
-    // objeto en memoria; lo unico que evita este catch es que se persistan al
-    // guardar. Si la operacion es parcialmente destructiva, deshaz a mano lo
-    // que hayas alcanzado a modificar antes de la excepcion.
-    MessageBox.Show(string.Format("Error durante la modificacion: {0}", ex.Message));
+    // objeto en memoria; lo único que evita este catch es que se persistan al
+    // guardar. Si la operación es parcialmente destructiva, deshaz a mano lo
+    // que hayas alcanzado a modificar antes de la excepción.
+    MessageBox.Show(string.Format("Error durante la modificación: {0}", ex.Message));
 }
 ]]></Code>
     </Snippet>

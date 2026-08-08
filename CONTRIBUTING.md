@@ -1,26 +1,26 @@
 # Como contribuir
 
-Gracias por querer aportar. Esta coleccion crece bien cuando cada snippet
-resuelve un problema concreto que se repite en la practica clinica.
+Gracias por querer aportar. Esta colección crece bien cuando cada snippet
+resuelve un problema concreto que se repite en la práctica clínica.
 
 ## Antes de escribir el snippet
 
 - Revisa [`SNIPPETS.md`](SNIPPETS.md) para no duplicar algo existente.
-- Verifica el codigo contra la documentacion de tu version de Eclipse. Un
-  snippet que no compila cuesta mas tiempo del que ahorra.
-- Si el metodo cambio de firma entre versiones, dilo en un comentario dentro
-  del propio codigo, no solo en la descripcion.
+- Verifica el código contra la documentación de tu version de Eclipse. Un
+  snippet que no compila cuesta más tiempo del que ahorra.
+- Si el método cambio de firma entre versiones, dilo en un comentario dentro
+  del propio código, no solo en la descripción.
 
 ## Estructura de un snippet
 
 1. **Ubicacion**: `snippets/<NN-Categoria>/<shortcut>.snippet`. El nombre del
    archivo debe ser identico al `<Shortcut>`; el validador lo comprueba.
-2. **Shortcut**: sigue el prefijo de la categoria (`ss-`, `plan-`, `opt-`,
+2. **Shortcut**: sigue el prefijo de la categoría (`ss-`, `plan-`, `opt-`,
    `dose-`, `beam-`, `image-`, `tx-`, `util-`, `err-`, `esapi-`).
 3. **Header**: rellena `Title`, `Shortcut`, `Description`, `Author` y
    `SnippetTypes`.
-4. **Literales**: cada `<Literal>` declarado tiene que usarse en el codigo, y
-   cada `$campo$` del codigo tiene que estar declarado. `$end$` y `$selected$`
+4. **Literales**: cada `<Literal>` declarado tiene que usarse en el código, y
+   cada `$campo$` del código tiene que estar declarado. `$end$` y `$selected$`
    son marcadores reservados de Visual Studio y no se declaran.
 5. **Cursor final**: incluye siempre `$end$`.
 
@@ -28,7 +28,7 @@ Usa cualquier archivo existente como plantilla.
 
 ## Criterios de calidad
 
-Estos son los errores que mas se han corregido en el repo, vale la pena
+Estos son los errores que más se han corregido en el repo, vale la pena
 evitarlos de entrada:
 
 - **Unidades de dosis**: no asumas Gy. Eclipse puede estar configurado en cGy.
@@ -38,7 +38,7 @@ evitarlos de entrada:
 - **Escritura**: los snippets que modifiquen datos deben recordar
   `BeginModifications()` y el atributo `[assembly: ESAPIScript(IsWriteable = true)]`
   que exige Eclipse v16 y superiores.
-- **Cultura**: formatea numeros con `CultureInfo.InvariantCulture` antes de
+- **Cultura**: formatea números con `CultureInfo.InvariantCulture` antes de
   escribirlos a CSV o a un log.
 - **Comparaciones de Id**: usa `StringComparison.OrdinalIgnoreCase`.
 
@@ -50,7 +50,7 @@ python3 tools/generate_index.py
 ```
 
 El primero valida la estructura; el segundo regenera `SNIPPETS.md`. Ambos
-corren tambien en CI, y el PR falla si el indice quedo desactualizado.
+corren también en CI, y el PR falla si el índice quedó desactualizado.
 
-En la descripcion del PR indica el caso de uso clinico y la version de Eclipse
-en la que probaste el codigo.
+En la descripción del PR indica el caso de uso clínico y la version de Eclipse
+en la que probaste el código.
