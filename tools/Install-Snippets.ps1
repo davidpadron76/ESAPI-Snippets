@@ -12,6 +12,10 @@
     usuario actual y copia ahi el contenido de snippets\, conservando las
     subcarpetas por categoria.
 
+    La copia se hace con robocopy en vez de Copy-Item: es mas robusto ante
+    carpetas de destino recien creadas y ante retrasos de sincronizacion
+    cuando "Documentos" vive dentro de OneDrive.
+
 .PARAMETER VisualStudioVersion
     Version concreta a la que instalar (por ejemplo 2022). Si se omite, se
     instala en todas las versiones detectadas.
@@ -95,13 +99,19 @@ foreach ($candidate in $candidates) {
             Remove-Item -LiteralPath $destination -Recurse -Force
         }
 
-        # Copy-Item -Recurse falla al crear subcarpetas cuando el destino no
-        # existe todavia (bug conocido de Windows PowerShell). Se crea el
-        # destino primero y se copia el CONTENIDO de snippets\ (con \*), no
-        # la carpeta en si, para que Copy-Item solo tenga que crear
-        # subcarpetas dentro de un destino que ya existe.
+        # Copy-Item -Recurse copiando muchos archivos a una carpeta recien
+        # creada puede fallar con FileNotFoundException de forma intermitente
+        # (bug conocido de Windows PowerShell, agravado si el destino esta
+        # dentro de una carpeta sincronizada por OneDrive, que puede
+        # bloquear/retrasar los archivos mientras se escriben). robocopy es
+        # la herramienta estandar de Windows para copias recursivas y trae
+        # reintentos automaticos, por lo que resuelve el problema de raiz.
         New-Item -ItemType Directory -Path $destination -Force | Out-Null
-        Copy-Item -Path (Join-Path $sourceDir '*') -Destination $destination -Recurse -Force
+
+        $roboOutput = & robocopy $sourceDir $destination /E /R:3 /W:1 /NFL /NDL /NJH /NJS /NC /NP
+        if ($LASTEXITCODE -ge 8) {
+            throw "robocopy fallo copiando a '$destination' (codigo de salida $LASTEXITCODE).`n$roboOutput"
+        }
 
         $count = (Get-ChildItem -LiteralPath $destination -Recurse -Filter '*.snippet').Count
         Write-Host "Instalados $count snippets en $($candidate.Name)." -ForegroundColor Green
