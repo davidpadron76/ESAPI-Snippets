@@ -95,7 +95,13 @@ foreach ($candidate in $candidates) {
             Remove-Item -LiteralPath $destination -Recurse -Force
         }
 
-        Copy-Item -LiteralPath $sourceDir -Destination $destination -Recurse -Force
+        # Copy-Item -Recurse falla al crear subcarpetas cuando el destino no
+        # existe todavia (bug conocido de Windows PowerShell). Se crea el
+        # destino primero y se copia el CONTENIDO de snippets\ (con \*), no
+        # la carpeta en si, para que Copy-Item solo tenga que crear
+        # subcarpetas dentro de un destino que ya existe.
+        New-Item -ItemType Directory -Path $destination -Force | Out-Null
+        Copy-Item -Path (Join-Path $sourceDir '*') -Destination $destination -Recurse -Force
 
         $count = (Get-ChildItem -LiteralPath $destination -Recurse -Filter '*.snippet').Count
         Write-Host "Instalados $count snippets en $($candidate.Name)." -ForegroundColor Green
