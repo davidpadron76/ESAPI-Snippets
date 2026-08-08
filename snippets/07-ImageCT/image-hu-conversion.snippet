@@ -4,7 +4,7 @@
     <Header>
       <Title>Read Voxel Values and Convert to HU</Title>
       <Shortcut>image-hu-conversion</Shortcut>
-      <Description>Lee un corte axial de la imagen y convierte los voxeles crudos a HU con VoxelToDisplayValue (util para QA de curva CT).</Description>
+      <Description>Lee un corte axial de la imagen y convierte los vóxeles crudos a HU con VoxelToDisplayValue (útil para QA de curva CT).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -19,12 +19,12 @@
         </Literal>
         <Literal>
           <ID>voxelBuffer</ID>
-          <ToolTip>Buffer de voxeles</ToolTip>
+          <ToolTip>Buffer de vóxeles</ToolTip>
           <Default>voxels</Default>
         </Literal>
         <Literal>
           <ID>sliceIndex</ID>
-          <ToolTip>Indice del corte axial</ToolTip>
+          <ToolTip>Índice del corte axial</ToolTip>
           <Default>50</Default>
         </Literal>
       </Declarations>
@@ -32,8 +32,8 @@
 int[,] $voxelBuffer$ = new int[$imageVar$.XSize, $imageVar$.YSize];
 $imageVar$.GetVoxels($sliceIndex$, $voxelBuffer$);
 
-// Los valores crudos son especificos del almacenamiento interno de Eclipse.
-// VoxelToDisplayValue los convierte a la escala mostrada (HU en imagenes CT).
+// Los valores crudos son específicos del almacenamiento interno de Eclipse.
+// VoxelToDisplayValue los convierte a la escala mostrada (HU en imágenes CT).
 double huValue = $imageVar$.VoxelToDisplayValue($voxelBuffer$[$imageVar$.XSize / 2, $imageVar$.YSize / 2]);
 
 $end$

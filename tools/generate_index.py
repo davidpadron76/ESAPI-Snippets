@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Genera SNIPPETS.md, el catalogo completo de la coleccion.
+"""Genera SNIPPETS.md, el catálogo completo de la colección.
 
-El indice se construye leyendo los propios archivos .snippet, de modo que no
+El índice se construye leyendo los propios archivos .snippet, de modo que no
 haya que mantener a mano ni el conteo ni las descripciones.
 
 Uso:
     python3 tools/generate_index.py          # reescribe SNIPPETS.md
-    python3 tools/generate_index.py --check   # falla si esta desactualizado
+    python3 tools/generate_index.py --check   # falla si está desactualizado
 """
 
 import argparse
@@ -18,9 +18,9 @@ NS = {"s": "http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet"}
 
 HEADER = """<!-- Archivo generado por tools/generate_index.py. No editar a mano. -->
 
-# Catalogo de snippets
+# Catálogo de snippets
 
-{total} snippets en {categories} categorias. Escribe el shortcut en un archivo
+{total} snippets en {categories} categorías. Escribe el shortcut en un archivo
 `.cs` y presiona `Tab` dos veces para expandirlo.
 
 """
@@ -70,7 +70,7 @@ def build_index(root):
 
     for name, entries in categories:
         parts.append("## `%s`\n\n" % name)
-        parts.append("| Shortcut | Titulo | Descripcion | Campos editables |\n")
+        parts.append("| Shortcut | Título | Descripción | Campos editables |\n")
         parts.append("|---|---|---|---|\n")
 
         for entry in entries:
@@ -117,12 +117,12 @@ def main():
 
         if current != content:
             print(
-                "ERROR: SNIPPETS.md esta desactualizado. "
+                "ERROR: SNIPPETS.md está desactualizado. "
                 "Ejecuta: python3 tools/generate_index.py"
             )
             return 1
 
-        print("SNIPPETS.md esta al dia.")
+        print("SNIPPETS.md está al día.")
         return 0
 
     with open(target, "w", encoding="utf-8") as handle:

@@ -4,7 +4,7 @@
     <Header>
       <Title>Read External JSON Config</Title>
       <Shortcut>util-config-json</Shortcut>
-      <Description>Lee un archivo de configuracion externo en JSON (requiere referencia a Newtonsoft.Json).</Description>
+      <Description>Lee un archivo de configuración externo en JSON (requiere referencia a Newtonsoft.Json).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -14,7 +14,7 @@
       <Declarations>
         <Literal>
           <ID>configType</ID>
-          <ToolTip>Clase que representa la configuracion</ToolTip>
+          <ToolTip>Clase que representa la configuración</ToolTip>
           <Default>ScriptConfig</Default>
         </Literal>
       </Declarations>
@@ -24,7 +24,7 @@ private static $configType$ LoadConfig(string jsonPath)
 {
     if (!System.IO.File.Exists(jsonPath))
     {
-        throw new System.IO.FileNotFoundException("No se encontro el archivo de configuracion.", jsonPath);
+        throw new System.IO.FileNotFoundException("No se encontró el archivo de configuración.", jsonPath);
     }
 
     string jsonText = System.IO.File.ReadAllText(jsonPath);

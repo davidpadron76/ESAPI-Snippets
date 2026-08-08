@@ -4,7 +4,7 @@
     <Header>
       <Title>PTV Auto-Detection by Naming Convention</Title>
       <Shortcut>ss-ptv-autodetect</Shortcut>
-      <Description>Deteccion dinamica de PTVs por convencion de nombre y ordenamiento por nivel de dosis (patron usado en Shulman SIB).</Description>
+      <Description>Detección dinámica de PTVs por convención de nombre y ordenamiento por nivel de dosis (patrón usado en Shulman SIB).</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -32,11 +32,11 @@ if (!$ptvListVar$.Any())
 }
 $end$
 
-// Helper sugerido (agregar como metodo privado de la clase Script):
+// Helper sugerido (agregar como método privado de la clase Script):
 // private static double ExtractDoseLevelFromName(string structureId)
 // {
-//     // Toma el MAYOR numero del Id, no el primero: en "PTV_2_70Gy" el primer
-//     // numero es el indice del nivel (2), no la dosis (70).
+//     // Toma el MAYOR número del Id, no el primero: en "PTV_2_70Gy" el primer
+//     // número es el índice del nivel (2), no la dosis (70).
 //     var matches = System.Text.RegularExpressions.Regex.Matches(
 //         structureId, @"\d+(?:[.,]\d+)?");
 //     double best = 0.0;

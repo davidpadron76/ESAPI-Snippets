@@ -1,8 +1,11 @@
 name: Validar snippets
 
+# El push se limita a main: para cualquier otra rama, el evento pull_request ya
+# cubre la validación. Con "**" ambos eventos disparaban sobre el mismo commit y
+# cada push a una rama con PR abierto gastaba el doble de minutos de Actions.
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -19,7 +22,7 @@ jobs:
       - name: Validar estructura de los .snippet
         run: python3 tools/validate_snippets.py
 
-      - name: Verificar que SNIPPETS.md este al dia
+      - name: Verificar que SNIPPETS.md esté al día
         run: python3 tools/generate_index.py --check
 
       - name: Analizar Install-Snippets.ps1

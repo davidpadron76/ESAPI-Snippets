@@ -4,7 +4,7 @@
     <Header>
       <Title>Calculate Conformity Index (CI)</Title>
       <Shortcut>dose-conformity-index</Shortcut>
-      <Description>Calcula el indice de conformidad RTOG: CI = Vol_isodosis_prescrita / Vol_PTV.</Description>
+      <Description>Calcula el índice de conformidad RTOG: CI = Vol_isodosis_prescrita / Vol_PTV.</Description>
       <Author>David Padron - Nexus MedPhysics</Author>
       <SnippetTypes>
         <SnippetType>Expansion</SnippetType>
@@ -14,7 +14,7 @@
       <Declarations>
         <Literal>
           <ID>ciVar</ID>
-          <ToolTip>Variable del indice de conformidad</ToolTip>
+          <ToolTip>Variable del índice de conformidad</ToolTip>
           <Default>conformityIndex</Default>
         </Literal>
         <Literal>
@@ -33,7 +33,7 @@
           <Default>body</Default>
         </Literal>
       </Declarations>
-      <Code Language="CSharp"><![CDATA[// CI (RTOG) = Volumen del cuerpo cubierto por la isodosis de prescripcion
+      <Code Language="CSharp"><![CDATA[// CI (RTOG) = Volumen del cuerpo cubierto por la isodosis de prescripción
 //             / Volumen del PTV
 if ($planVar$.Dose == null)
 {
@@ -46,11 +46,11 @@ Structure $bodyVar$ = $planVar$.StructureSet.Structures
 
 if ($bodyVar$ == null)
 {
-    MessageBox.Show("No se encontro la estructura EXTERNAL (BODY) del StructureSet.");
+    MessageBox.Show("No se encontró la estructura EXTERNAL (BODY) del StructureSet.");
     return;
 }
 
-// TotalDose ya viene en las unidades del plan, asi no hay desajuste Gy/cGy.
+// TotalDose ya viene en las unidades del plan, así no hay desajuste Gy/cGy.
 double prescriptionIsoVolume = $planVar$.GetVolumeAtDose(
     $bodyVar$,
     $planVar$.TotalDose,
